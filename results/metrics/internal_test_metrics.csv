@@ -1,0 +1,6 @@
+Model,MAE,RMSE,R2,NASA_Score
+Stacking Ensemble,7.0108,10.0898,0.9412,4709.01
+Voting Ensemble,7.1651,10.194,0.94,4622.99
+Retrained CatBoost,7.3597,10.3397,0.9383,4790.29
+Retrained XGBoost,7.3931,10.4785,0.9366,4921.02
+Retrained LightGBM,7.4316,10.6702,0.9343,5076.35

@@ -1,0 +1,34 @@
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / 'data'
+RAW_DATA_DIR = DATA_DIR / 'raw'
+INTERIM_DATA_DIR = DATA_DIR / 'interim'
+PROCESSED_DATA_DIR = DATA_DIR / 'processed'
+MODELS_DIR = BASE_DIR / 'models'
+MODELS_INDIVIDUAL_DIR = MODELS_DIR / 'individual'
+MODELS_ENSEMBLE_DIR = MODELS_DIR / 'ensemble'
+MODELS_FINAL_DIR = MODELS_DIR / 'final'
+RESULTS_DIR = BASE_DIR / 'results'
+METRICS_DIR = RESULTS_DIR / 'metrics'
+PREDICTIONS_DIR = RESULTS_DIR / 'predictions'
+FIGURES_DIR = RESULTS_DIR / 'figures'
+SHAP_DIR = RESULTS_DIR / 'shap'
+LOGS_DIR = BASE_DIR / 'logs'
+DATASET_SUBSET = 'FD001'
+TRAIN_FILE = RAW_DATA_DIR / f'train_{DATASET_SUBSET}.txt'
+TEST_FILE = RAW_DATA_DIR / f'test_{DATASET_SUBSET}.txt'
+RUL_FILE = RAW_DATA_DIR / f'RUL_{DATASET_SUBSET}.txt'
+INDEX_COLUMNS = ['engine_id', 'cycle']
+SETTING_COLUMNS = ['setting_1', 'setting_2', 'setting_3']
+SENSOR_COLUMNS = [f'sensor_{i}' for i in range(1, 22)]
+ALL_COLUMNS = INDEX_COLUMNS + SETTING_COLUMNS + SENSOR_COLUMNS
+RAW_COLUMNS = ALL_COLUMNS
+CONSTANT_SENSORS_FD001 = ['sensor_1', 'sensor_5', 'sensor_6', 'sensor_10', 'sensor_16', 'sensor_18', 'sensor_19']
+SETTING_DROPS_FD001 = ['setting_3']
+PIECEWISE_RUL_LIMIT = 125
+ROLLING_WINDOWS = [5, 10, 20]
+RANDOM_STATE = 42
+TRAIN_RATIO = 0.7
+VAL_RATIO = 0.15
+INTERNAL_TEST_RATIO = 0.15

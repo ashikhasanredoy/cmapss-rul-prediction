@@ -1,0 +1,43 @@
+[2026-10-08 13:38:34] INFO - Engine #1 Prediction: RUL=120.2 cycles (Cycle 31 -> Est. Failure Cycle 151.2) | Status=HEALTHY (Normal Operational Margin)
+[2026-10-08 13:38:38] INFO - Engine #15 Prediction: RUL=101.9 cycles (Cycle 76 -> Est. Failure Cycle 177.9) | Status=HEALTHY (Normal Operational Margin)
+[2026-10-08 13:39:01] INFO - Engine split: 70 train, 15 val, 15 test engines
+[2026-10-08 13:39:01] INFO - Test log message for verification
+[2026-10-08 13:39:01] ERROR - Error occurred in python script name [/Users/macbookpro/Downloads/CMAPSSData/tests/test_utils_exception.py] line number [17] error message [Simulated pipeline failure]
+[2026-10-08 13:43:18] INFO - FastAPI: RULPredictor loaded successfully
+[2026-10-08 13:43:22] INFO - Engine split: 70 train, 15 val, 15 test engines
+[2026-10-08 13:43:22] INFO - Test log message for verification
+[2026-10-08 13:43:22] ERROR - Error occurred in python script name [/Users/macbookpro/Downloads/CMAPSSData/tests/test_utils_exception.py] line number [17] error message [Simulated pipeline failure]
+[2026-10-08 13:43:56] INFO - FastAPI: RULPredictor loaded successfully
+[2026-10-08 13:44:00] INFO - Engine split: 70 train, 15 val, 15 test engines
+[2026-10-08 13:44:00] INFO - Test log message for verification
+[2026-10-08 13:44:00] ERROR - Error occurred in python script name [/Users/macbookpro/Downloads/CMAPSSData/tests/test_utils_exception.py] line number [17] error message [Simulated pipeline failure]
+[2026-10-08 13:48:24] INFO - FastAPI: RULPredictor loaded successfully
+[2026-10-08 13:48:28] INFO - Engine split: 70 train, 15 val, 15 test engines
+[2026-10-08 13:48:28] INFO - Test log message for verification
+[2026-10-08 13:48:28] ERROR - Error occurred in python script name [/Users/macbookpro/Downloads/CMAPSSData/tests/test_utils_exception.py] line number [17] error message [Simulated pipeline failure]
+[2026-10-08 13:50:10] INFO - Starting C-MAPSS FD001 RUL training pipeline
+[2026-10-08 13:50:10] INFO - Dataset 'Raw Train FD001' validated: 20631 rows, 26 cols, 100 engines (Valid: True)
+[2026-10-08 13:50:10] INFO - Engine split: 70 train, 15 val, 15 test engines
+[2026-10-08 13:50:19] INFO - Engineered 235 features per cycle
+[2026-10-08 13:51:00] INFO - Validation Leaderboard:
+             Model     MAE    RMSE      R2  NASA_Score
+ XGBoost (Default)  7.5354 10.7508  0.9332     6501.73
+LightGBM (Default)  7.5319 10.8344  0.9321     6638.80
+CatBoost (Default)  8.2999 11.4470  0.9242     6980.22
+     Random Forest  8.4093 12.0838  0.9156     8981.04
+ Linear Regression 12.7779 15.8789  0.8542    12606.25
+     Mean Baseline 37.0531 41.6015 -0.0009   924686.99
+[2026-10-08 13:54:54] INFO - Internal Test Leaderboard:
+             Model    MAE    RMSE     R2  NASA_Score
+ Stacking Ensemble 7.0108 10.0898 0.9412     4709.01
+   Voting Ensemble 7.1651 10.1940 0.9400     4622.99
+Retrained CatBoost 7.3597 10.3397 0.9383     4790.29
+ Retrained XGBoost 7.3931 10.4785 0.9366     4921.02
+Retrained LightGBM 7.4316 10.6702 0.9343     5076.35
+[2026-10-08 13:54:54] INFO - Champion Architecture: Stacking Ensemble
+[2026-10-08 13:54:55] INFO - Official Test Score: RMSE=12.8994, MAE=9.4882, R2=0.9036, NASA Score=220.79
+[2026-10-08 13:55:02] INFO - Pipeline run finished successfully
+[2026-10-08 13:55:13] INFO - FastAPI: RULPredictor loaded successfully
+[2026-10-08 13:55:17] INFO - Engine split: 70 train, 15 val, 15 test engines
+[2026-10-08 13:55:17] INFO - Test log message for verification
+[2026-10-08 13:55:17] ERROR - Error occurred in python script name [/Users/macbookpro/Downloads/CMAPSSData/tests/test_utils_exception.py] line number [17] error message [Simulated pipeline failure]
