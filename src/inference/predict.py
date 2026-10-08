@@ -19,11 +19,15 @@ class RULPredictor:
 
     def predict_engine(self, df_engine: pd.DataFrame) -> Dict[str, Any]:
         try:
-            df_feat = build_feature_dataframe(df_engine, is_train=False)
+            df_in = df_engine.copy()
+            if 'engine_id' in df_in.columns and df_in['engine_id'].nunique() > 1:
+                target_id = df_in['engine_id'].iloc[-1]
+                df_in = df_in[df_in['engine_id'] == target_id]
+            df_feat = build_feature_dataframe(df_in, is_train=False)
             latest = df_feat.sort_values('cycle').iloc[-1]
             engine_id = int(latest.get('engine_id', 1))
-            current_cycle = int(latest['cycle'])
-            X = latest[self.feature_names].to_frame().T
+            current_cycle = int(latest.get('cycle', len(df_in)))
+            X = pd.DataFrame([latest]).reindex(columns=self.feature_names, fill_value=0.0)
             predicted_rul = float(np.clip(self.model.predict(X)[0], 0, None))
             status = 'CRITICAL (Immediate Maintenance Required)' if predicted_rul <= 15 else 'WARNING (Schedule Inspection)' if predicted_rul <= 40 else 'HEALTHY (Normal Operational Margin)'
             indicator = 'RED' if predicted_rul <= 15 else 'YELLOW' if predicted_rul <= 40 else 'GREEN'

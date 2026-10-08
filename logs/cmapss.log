@@ -41,3 +41,15 @@ Retrained LightGBM 7.4316 10.6702 0.9343     5076.35
 [2026-10-08 13:55:17] INFO - Engine split: 70 train, 15 val, 15 test engines
 [2026-10-08 13:55:17] INFO - Test log message for verification
 [2026-10-08 13:55:17] ERROR - Error occurred in python script name [/Users/macbookpro/Downloads/CMAPSSData/tests/test_utils_exception.py] line number [17] error message [Simulated pipeline failure]
+[2026-10-08 17:04:37] INFO - FastAPI: RULPredictor loaded successfully
+[2026-10-08 17:04:40] INFO - Engine split: 70 train, 15 val, 15 test engines
+[2026-10-08 17:04:40] INFO - Test log message for verification
+[2026-10-08 17:04:40] ERROR - Error occurred in python script name [/Users/macbookpro/Downloads/CMAPSSData/tests/test_utils_exception.py] line number [17] error message [Simulated pipeline failure]
+[2026-10-08 17:06:02] INFO - FastAPI: RULPredictor loaded successfully
+[2026-10-08 17:06:05] INFO - Engine split: 70 train, 15 val, 15 test engines
+[2026-10-08 17:06:05] INFO - Test log message for verification
+[2026-10-08 17:06:05] ERROR - Error occurred in python script name [/Users/macbookpro/Downloads/CMAPSSData/tests/test_utils_exception.py] line number [17] error message [Simulated pipeline failure]
+[2026-10-08 17:06:54] INFO - FastAPI: RULPredictor loaded successfully
+[2026-10-08 17:06:58] INFO - Engine split: 70 train, 15 val, 15 test engines
+[2026-10-08 17:06:58] INFO - Test log message for verification
+[2026-10-08 17:06:58] ERROR - Error occurred in python script name [/Users/macbookpro/Downloads/CMAPSSData/tests/test_utils_exception.py] line number [17] error message [Simulated pipeline failure]

@@ -128,15 +128,8 @@ def get_cached_predictor():
 
 st.markdown('''
 <div class="main-header">
-    <div style="display: flex; align-items: center; justify-content: space-between;">
-        <div>
-            <h1 class="main-title">NASA Turbofan AI: Remaining Useful Life (RUL) Predictor</h1>
-            <p class="sub-title">Zero-Leakage Predictive Maintenance System - NASA C-MAPSS FD001</p>
-        </div>
-        <div style="text-align: right;">
-            <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">Production Model Active</span>
-        </div>
-    </div>
+    <h1 class="main-title">NASA Turbofan AI: Remaining Useful Life (RUL) Predictor</h1>
+    <p class="sub-title">Zero-Leakage Predictive Maintenance System - NASA C-MAPSS FD001</p>
 </div>
 ''', unsafe_allow_html=True)
 
@@ -267,22 +260,51 @@ else:
             actual_current_rul = None
 
     with input_tab3:
-        st.markdown('##### Upload Telemetry Log (CSV or Space-Delimited TXT)')
-        uploaded_file = st.file_uploader('Upload engine flight cycles:', type=['csv', 'txt'])
+        st.markdown('##### Upload Telemetry Log (CSV, TXT, or Excel)')
+        uploaded_file = st.file_uploader('Upload engine flight cycles:', type=['csv', 'txt', 'xlsx', 'xls', 'tsv'])
         if uploaded_file is not None:
             try:
-                if uploaded_file.name.endswith('.csv'):
-                    up_df = pd.read_csv(uploaded_file)
+                fname = uploaded_file.name.lower()
+                if fname.endswith(('.xlsx', '.xls')):
+                    up_df = pd.read_excel(uploaded_file)
+                elif fname.endswith('.tsv'):
+                    up_df = pd.read_csv(uploaded_file, sep='\t')
                 else:
-                    up_df = pd.read_csv(uploaded_file, sep=r'\s+', header=None)
-                    if up_df.shape[1] >= 26:
-                        up_df = up_df.iloc[:, :26]
-                        up_df.columns = RAW_COLUMNS
-                st.success(f'Loaded {len(up_df)} cycles.')
-                st.dataframe(up_df.head(5), use_container_width=True)
-                input_df = up_df
-                selected_cycle = int(up_df['cycle'].max()) if 'cycle' in up_df.columns else len(up_df)
-                engine_id_display = int(up_df['engine_id'].iloc[-1]) if 'engine_id' in up_df.columns else 1
+                    try:
+                        up_df = pd.read_csv(uploaded_file)
+                        if up_df.shape[1] == 1:
+                            uploaded_file.seek(0)
+                            up_df = pd.read_csv(uploaded_file, sep=r'\s+', header=None)
+                    except Exception:
+                        uploaded_file.seek(0)
+                        up_df = pd.read_csv(uploaded_file, sep=r'\s+', header=None)
+
+                if up_df.shape[1] >= 26 and 'sensor_1' not in up_df.columns:
+                    up_df = up_df.iloc[:, :26]
+                    up_df.columns = RAW_COLUMNS
+                elif up_df.shape[1] == 24 and 'sensor_1' not in up_df.columns:
+                    col_names = [c for c in RAW_COLUMNS if c not in ['engine_id', 'cycle']]
+                    up_df.columns = col_names
+                    up_df['engine_id'] = 1
+                    up_df['cycle'] = list(range(1, len(up_df) + 1))
+                elif 'engine_id' not in up_df.columns:
+                    up_df['engine_id'] = 1
+                    if 'cycle' not in up_df.columns:
+                        up_df['cycle'] = list(range(1, len(up_df) + 1))
+
+                st.success(f'Loaded {len(up_df)} cycles across {up_df["engine_id"].nunique()} engine(s).')
+                
+                avail_up_eng = sorted(up_df['engine_id'].unique().tolist())
+                if len(avail_up_eng) > 1:
+                    chosen_up_eng = st.selectbox('Select Engine from Uploaded File:', avail_up_eng)
+                    chosen_slice = up_df[up_df['engine_id'] == chosen_up_eng].copy().reset_index(drop=True)
+                else:
+                    chosen_slice = up_df.copy().reset_index(drop=True)
+
+                st.dataframe(chosen_slice.head(5), use_container_width=True)
+                input_df = chosen_slice
+                selected_cycle = int(chosen_slice['cycle'].max()) if 'cycle' in chosen_slice.columns else len(chosen_slice)
+                engine_id_display = int(chosen_slice['engine_id'].iloc[-1]) if 'engine_id' in chosen_slice.columns else 1
                 actual_current_rul = None
             except Exception as e:
                 st.error(f'Error reading file: {e}')
